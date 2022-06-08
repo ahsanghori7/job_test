@@ -12,5 +12,6 @@ class Comment extends Model
     protected $fillable = [
         'comment',
         'film_id',
+        "added_by"
     ];
 }

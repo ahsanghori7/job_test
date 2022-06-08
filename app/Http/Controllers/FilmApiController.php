@@ -15,8 +15,8 @@ class FilmApiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return Film::with("genres")->get();
+    {   
+        return Film::with("genres","comments")->get();
     }
 
     /**
