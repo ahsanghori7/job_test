@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', 'App\Http\Controllers\UserController@login');
+Route::post('register', 'App\Http\Controllers\UserController@register');
+
+Route::get('films', 'App\Http\Controllers\FilmApiController@index');
+Route::get('film/{id}', 'App\Http\Controllers\FilmApiController@show');
+
+
+Route::group(['middleware' => 'auth:api'], function(){
+    
+Route::post('film_add', 'App\Http\Controllers\FilmApiController@store');
+Route::post('add_comment', 'App\Http\Controllers\FilmApiController@comment');
+
 });
+
+
