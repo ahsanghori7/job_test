@@ -47,8 +47,8 @@ class FilmApiController extends Controller
          $Film = Film::create($request->all());
 
          $Film->genres()->attach($request['genre'], ['created_at' => now()]);
-
-         return $Film;
+         
+         return response()->json($Film, 201);;
     }
 
 

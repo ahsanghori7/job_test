@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->string('description', 50);
-            $table->string('release_date');
+            $table->date('release_date');
             $table->integer('rating');
-            $table->string('ticket_price', 50);
+            $table->string('ticket_price', 10);
             $table->string('country', 50);
             $table->string('photo', 50);
             $table->timestamps();
