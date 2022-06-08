@@ -37,7 +37,8 @@ class FilmApiController extends Controller
             "photo" =>"required",
         );
 
-       
+       try {
+
         $validator=Validator::make($request->all(),$rules);
 
         if($validator->fails())
@@ -48,7 +49,16 @@ class FilmApiController extends Controller
 
          $Film->genres()->attach($request['genre'], ['created_at' => now()]);
          
-         return response()->json($Film, 201);;
+
+         return response()->json(['message'=>'Film has been added !!',201]);
+
+         } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json([
+                'message'=>'Something goes wrong while adding a film !!'
+            ]);
+        }
+
     }
 
 
@@ -60,7 +70,8 @@ class FilmApiController extends Controller
             'comment'  =>"required",
         );
 
-       
+       try{
+
         $validator=Validator::make($request->all(),$rules);
 
         if($validator->fails())
@@ -69,7 +80,16 @@ class FilmApiController extends Controller
         }
          $Film = Comment::create($request->all());
 
-         return $Film;
+
+        return response()->json(['message'=>'Comment has been added !!']);
+
+
+          } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json([
+                'message'=>'Something goes wrong while commenting !!'
+            ]);
+        }
     } 
 
     /**
