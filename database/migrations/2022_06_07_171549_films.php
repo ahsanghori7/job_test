@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('rating');
             $table->string('ticket_price', 10);
             $table->string('country', 50);
-            $table->string('photo', 50);
+            $table->text('photo');
             $table->timestamps();
         });
     }

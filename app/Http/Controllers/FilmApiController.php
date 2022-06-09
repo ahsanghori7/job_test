@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Film;
 use Validator;
 use App\Models\Comment;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class FilmApiController extends Controller
 {
@@ -45,6 +47,12 @@ class FilmApiController extends Controller
         {
             return $validator->errors();
         }
+
+         $imageName = Str::random().'.'.$request->photo->getClientOriginalExtension();
+        
+         Storage::disk('public')->putFileAs('film/photo', $request->photo,$imageName);
+
+
          $Film = Film::create($request->all());
 
          $Film->genres()->attach($request['genre'], ['created_at' => now()]);
@@ -53,9 +61,9 @@ class FilmApiController extends Controller
          return response()->json(['message'=>'Film has been added !!',201]);
 
          } catch (\Exception $e) {
-            \Log::error($e->getMessage());
+       
             return response()->json([
-                'message'=>'Something goes wrong while adding a film !!'
+                'message'=>$e->getMessage()
             ]);
         }
 
